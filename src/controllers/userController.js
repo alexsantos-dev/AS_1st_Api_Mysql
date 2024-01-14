@@ -13,8 +13,8 @@ async function getAllUsers(req, res) {
 async function getUser(req, res) {
     try {
         const { id } = req.params;
-        const users = await UserModel.getUser(id);
-        res.json(users);
+        const user = await UserModel.getUser(id);
+        res.json(user);
     }
     catch (error) {
         console.error('Erro ao obter usuarios:', error.message);
