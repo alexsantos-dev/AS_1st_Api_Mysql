@@ -1,4 +1,4 @@
-import * as UserModel from "../models/usuarioModel.mjs";
+import * as UserModel from "../models/usuarioModel.js";
 
 async function getAllUsers(req, res) {
     try {

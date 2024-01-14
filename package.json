@@ -2,11 +2,11 @@
   "name": "as_1st_api_mysql",
   "version": "1.0.0",
   "description": "Primeira api com mysql",
-  "main": "index.mjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.mjs",
-    "dev": "nodemon index.mjs"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Alex Santos",
   "license": "ISC",

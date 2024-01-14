@@ -1,4 +1,4 @@
-import { execute } from '../database/db.mjs';
+import { execute } from '../database/db.js';
 
 async function getAllUsers() {
     const query = "select * from users";

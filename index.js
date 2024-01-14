@@ -1,6 +1,6 @@
 import express from "express";
-import { conectDatabase } from "./src/database/db.mjs"
-import userRoutes from "./src/routes/userRoutes.mjs";
+import { conectDatabase } from "./src/database/db.js"
+import userRoutes from "./src/routes/userRoutes.js";
 import dotenv from "dotenv";
 
 const app = express();
