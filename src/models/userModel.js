@@ -1,12 +1,12 @@
 import { execute } from '../database/db.js';
 
 async function getAllUsers() {
-    const query = "select * from users";
+    const query = "select * from usuarios order by nasc";
     return await execute(query);
 }
 
 async function getUser(id) {
-    const query = "select * from users where id = ?";
+    const query = "select * from usuarios where id = ?";
     const params = [id];
 
     try {
@@ -18,9 +18,9 @@ async function getUser(id) {
     }
 }
 
-async function addUser(nome, email) {
-    const query = "insert into users (nome, email) values (?, ?)";
-    const params = [nome, email];
+async function addUser(nome, email, nasc, sexo) {
+    const query = "insert into usuarios (nome, email, nasc, sexo) values (?, ?, ?, ?)";
+    const params = [nome, email, nasc, sexo];
 
     try {
         const result = await execute(query, params);
@@ -30,9 +30,9 @@ async function addUser(nome, email) {
     }
 }
 
-async function updateUser(nome, email, id) {
-    const query = "update users set nome = ?, email = ? where id = ?";
-    const params = [nome, email, id];
+async function updateUser(nome, email, nasc, sexo, id) {
+    const query = "update usuarios set nome = ?, email = ? where id = ?";
+    const params = [nome, email, nasc, sexo, id];
     try {
         const results = await execute(query, params);
         return results;

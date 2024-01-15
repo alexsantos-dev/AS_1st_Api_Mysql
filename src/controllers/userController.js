@@ -1,4 +1,4 @@
-import * as UserModel from "../models/usuarioModel.js";
+import * as UserModel from "../models/userModel.js";
 
 async function getAllUsers(req, res) {
     try {
@@ -25,8 +25,8 @@ async function getUser(req, res) {
 
 async function addUser(req, res) {
     try {
-        const { nome, email } = req.body;
-        await UserModel.addUser(nome, email)
+        const { nome, email, nasc, sexo } = req.body;
+        await UserModel.addUser(nome, email, nasc, sexo)
         res.status(201).send('Usuário adicionado com sucesso!');
     }
     catch (error) {
@@ -38,8 +38,8 @@ async function addUser(req, res) {
 async function updateUser(req, res) {
     try {
         const { id } = req.params;
-        const { nome, email } = req.body;
-        await UserModel.updateUser(nome, email, id)
+        const { nome, email, nasc, sexo } = req.body;
+        await UserModel.updateUser(nome, email, nasc, sexo, id)
         res.send('Usuário atualizado com sucesso!');
     }
     catch (error) {
@@ -51,8 +51,13 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
     try {
         const { id } = req.params;
-        await UserModel.deleteUser(id);
-        res.send("Usuario removido com sucesso!");
+        const user = await UserModel.getUser(id)
+        if (req.id != user.id) {
+            res.status(400).send("ID de usuario invalida!");
+        } else {
+            await UserModel.deleteUser(id);
+            res.send("Usuario removido com sucesso!");
+        }
 
     }
     catch (error) {
