@@ -4,34 +4,31 @@ async function getAllUsers(req, res) {
     try {
         const users = await UserModel.getAllUsers();
         res.json(users);
-    }
-    catch (error) {
-        console.error('Erro ao obter usuarios:', error.message);
-        res.status(500).send('Erro no servidor');
+    } catch (error) {
+        res.status(500).send(error);
     }
 }
+
 async function getUser(req, res) {
     try {
         const { id } = req.params;
         const user = await UserModel.getUser(id);
+        if (!(user.length > 0)) {
+            throw error;
+        }
         res.json(user);
-    }
-    catch (error) {
-        console.error('Erro ao obter usuarios:', error.message);
-        res.status(500).send('Erro no servidor');
+    } catch (error) {
+        res.status(500).send('Usuario nao encontrado ;(');
     }
 }
-
 
 async function addUser(req, res) {
     try {
         const { nome, email, nasc, sexo } = req.body;
-        await UserModel.addUser(nome, email, nasc, sexo)
+        await UserModel.addUser(nome, email, nasc, sexo);
         res.status(201).send('Usuário adicionado com sucesso!');
-    }
-    catch (error) {
-        console.error("Erro ao adicionar usuario:", error.message)
-        res.status(500).send('Erro no servidor');
+    } catch (error) {
+        res.status(500).send(error);
     }
 }
 
@@ -39,30 +36,20 @@ async function updateUser(req, res) {
     try {
         const { id } = req.params;
         const { nome, email, nasc, sexo } = req.body;
-        await UserModel.updateUser(nome, email, nasc, sexo, id)
+        await UserModel.updateUser(nome, email, nasc, sexo, id);
         res.send('Usuário atualizado com sucesso!');
-    }
-    catch (error) {
-        console.error("Erro ao atualizar usuario:", error.message)
-        res.status(500).send('Erro no servidor');
+    } catch (error) {
+        res.status(500).send('Preencha todos os campos corretamente!');
     }
 }
 
 async function deleteUser(req, res) {
     try {
         const { id } = req.params;
-        const user = await UserModel.getUser(id)
-        if (req.id != user.id) {
-            res.status(400).send("ID de usuario invalida!");
-        } else {
-            await UserModel.deleteUser(id);
-            res.send("Usuario removido com sucesso!");
-        }
-
-    }
-    catch (error) {
-        console.error('Erro ao remover usuario:', error.message);
-        res.status(500).send('Erro interno no servidor');
+        await UserModel.deleteUser(id);
+        res.send("Usuário removido com sucesso!");
+    } catch (error) {
+        res.status(500).send('Usuario nao encontrado ;(');
     }
 }
 
